@@ -1,0 +1,5 @@
+{
+   "smtp_pass": "{{app.smtp_pass}}",
+   "smtp_user": "{{app.smtp_user}}",
+   "smtp_host": "{{app.smtp_host}}"
+}

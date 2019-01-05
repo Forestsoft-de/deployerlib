@@ -1,0 +1,22 @@
+{
+    "name": "forestsoft/deployerlib",
+    "description": "Package for reuseable deployer functions",
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "6.5.x-dev"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sebastian Foerster",
+            "email": "foerster@forestsoft.de"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Forestsoft\\Deployer\\": "src/Forestsoft/Deployer"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}

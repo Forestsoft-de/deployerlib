@@ -22,12 +22,12 @@ class Factory
     /**
      * @return Factory
      */
-    public static function getInstance()
+    public static function getInstance($hostConfig = "hosts.yml")
     {
         if (self::$instance === null) {
             self::$instance = new Factory();
             $wrapper = new Wrapper\Deployer\Stub();
-            $wrapper->inventory("hosts.yml");
+            $wrapper->inventory($hostConfig);
             self::$instance->setWrapper($wrapper);
         }
 

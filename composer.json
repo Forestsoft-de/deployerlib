@@ -9,7 +9,10 @@
     "require": {
         "php": "^7.1"
     },
-    "authors": [
+  "require-dev": {
+    "deployer/deployer": "^6.3"
+  },
+  "authors": [
         {
             "name": "Sebastian Foerster",
             "email": "foerster@forestsoft.de"
@@ -20,5 +23,5 @@
             "Forestsoft\\Deployer\\": "src/Forestsoft/Deployer"
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "dev"
 }

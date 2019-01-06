@@ -22,6 +22,15 @@ use Forestsoft\Deployer\Wrapper\Deployer;
 
 class Stub implements Deployer
 {
+
+
+    /**
+     * Stub constructor.
+     */
+    public function __construct()
+    {
+    }
+
     public function download($source, $destination)
     {
         download($source, $destination);

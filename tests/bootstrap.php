@@ -17,5 +17,7 @@ $localhost = new \Deployer\Host\Localhost();
 $localhost->set("foo", "bar");
 Context::push(new Context($localhost, $input, $output));
 
+copy(FIXTURES . "/hosts.yml", __DIR__ . "/hosts.yml");
+
 
 

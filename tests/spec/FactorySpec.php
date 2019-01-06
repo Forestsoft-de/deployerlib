@@ -16,7 +16,7 @@ class FactorySpec extends ObjectBehavior
 
     function let()
     {
-        copy(FIXTURES . "/hosts.yml", getcwd() . "/hosts.yml");
+
     }
 
     public  function it_return_an_factory_instance()

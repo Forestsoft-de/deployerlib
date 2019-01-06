@@ -35,6 +35,14 @@ class Factory
     }
 
     /**
+     * 
+     */
+    public static function reset()
+    {
+        self::$instance = null;
+    }
+
+    /**
      * @return Database
      */
     public function getDatabaseConfigurator()

@@ -3,6 +3,7 @@
 namespace Forestsoft\Deployer\Wrapper\Deployer;
 
 
+use function Deployer\cd;
 use function Deployer\download;
 use function Deployer\get;
 use function Deployer\has;
@@ -21,6 +22,15 @@ use Forestsoft\Deployer\Wrapper\Deployer;
 
 class Stub implements Deployer
 {
+
+
+    /**
+     * Stub constructor.
+     */
+    public function __construct()
+    {
+    }
+
     public function download($source, $destination)
     {
         download($source, $destination);
@@ -125,5 +135,11 @@ class Stub implements Deployer
     public function inventory($filename)
     {
         inventory($filename);
+    }
+
+    public function cd($directory)
+    {
+        cd($directory);
+        return $this;
     }
 }

@@ -90,4 +90,10 @@ interface Deployer
      * @return mixed
      */
     public function inventory($filename);
+
+    /**
+     * @param $directory
+     * @return mixed
+     */
+    public function cd($directory);
 }

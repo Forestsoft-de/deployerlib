@@ -1,0 +1,8 @@
+suites:
+  deployerlib:
+    namespace: Forestsoft\Deployer
+    psr4_prefix: Forestsoft\Deployer
+    src_path: "%paths.config%/../src"
+    spec_path: "%paths.config%"
+
+bootstrap: bootstrap.php

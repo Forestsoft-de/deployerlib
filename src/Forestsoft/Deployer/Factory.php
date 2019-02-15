@@ -4,6 +4,7 @@ namespace Forestsoft\Deployer;
 
 use Forestsoft\Deployer\Configuration\Configurator;
 use Forestsoft\Deployer\Configuration\Database;
+use Forestsoft\Deployer\Configuration\Writer\File;
 use Forestsoft\Deployer\Wrapper\Deployer;
 
 class Factory
@@ -61,6 +62,11 @@ class Factory
     public function getConfigurator()
     {
         return new Configurator($this->_wrapper);
+    }
+
+    public function getConfigFileWriter()
+    {
+        return new File($this->getConfigurator());
     }
 
     /**

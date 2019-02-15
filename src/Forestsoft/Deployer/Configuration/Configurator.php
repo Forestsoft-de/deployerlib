@@ -5,7 +5,7 @@ namespace Forestsoft\Deployer\Configuration;
 
 use Forestsoft\Deployer\Wrapper\Deployer;
 
-class Configurator
+class Configurator implements ConfiguratorInterface
 {
     /**
      * @var Deployer 
@@ -58,10 +58,25 @@ class Configurator
     }
 
     /**
+     * @param $string
+     */
+    public function parse($string)
+    {
+        return $this->_deployer->parse($string);
+    }
+
+    public function get($key, $default = null)
+    {
+        return $this->_deployer->get($key, $default);
+    }
+
+    /**
      * @param Deployer $deployer
      */
-    public function setDeployer(Deployer $deployer): void
+    public function setDeployer(Deployer $deployer): ConfiguratorInterface
     {
         $this->_deployer = $deployer;
+
+        return $this;
     }
 }

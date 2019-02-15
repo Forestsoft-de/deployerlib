@@ -3,6 +3,7 @@
 use Deployer\Deployer;
 
 use Deployer\Task\Context;
+use Forestsoft\Deployer\Configuration\Writer;
 use Forestsoft\Deployer\Factory;
 use PHPUnit\Framework\TestCase;
 
@@ -50,6 +51,11 @@ class FactoryTest extends TestCase
     public function testGetDatabaseCommand()
     {
         $this->assertInstanceOf(\Forestsoft\Deployer\Command\Database::class, $this->_object->getDatabaseCommand());
+    }
+
+    public function testgetFileConfigWriter()
+    {
+        $this->assertInstanceOf(Writer::class, $this->_object->getConfigFileWriter());
     }
 
     public function tearDown()

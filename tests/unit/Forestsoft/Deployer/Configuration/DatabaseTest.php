@@ -3,6 +3,7 @@
 namespace Forestsoft\Deployer\Configuration;
 
 use Forestsoft\Deployer\Wrapper\Deployer;
+use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 
 class DatabaseTest extends TestCase

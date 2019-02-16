@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <!-- ... -->
+        <parameter key="mailer.transport">sendmail</parameter>
+    </parameters>
+
+    <services>
+        <service id="Forestsoft\Deployer\Wrapper\Deployer" />
+
+        <service id="forestsoft_deployer" class="\Forestsoft\Deployer\Wrapper\Deployer\Stub" autowire="true"/>
+        <service id="forestsoft_deployer_command_database" class="\Forestsoft\Deployer\Command\Database">
+            <argument type="service" id="forestsoft_deployer" />
+        </service>
+    </services>
+</container>

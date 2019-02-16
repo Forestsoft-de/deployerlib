@@ -2,9 +2,6 @@
 
 namespace Forestsoft\Deployer\Wrapper;
 
-
-use function Deployer\get;
-
 interface Deployer
 {
     /**

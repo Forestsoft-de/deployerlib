@@ -6,6 +6,11 @@ use Forestsoft\Deployer\Configuration\Configurator;
 use Forestsoft\Deployer\Configuration\Database;
 use Forestsoft\Deployer\Configuration\Writer\File;
 use Forestsoft\Deployer\Wrapper\Deployer;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 class Factory
 {
@@ -19,6 +24,35 @@ class Factory
      */
     private $_wrapper;
 
+    /**
+     * @var ContainerInterface
+     */
+    private $_container;
+
+    /**
+     * Factory constructor.
+     */
+    public function __construct($hostConfig)
+    {
+        $this->_container = new ContainerBuilder();
+        $loader = new XmlFileLoader($this->_container, new FileLocator(__DIR__));
+        $loader->load(__DIR__ . '/services.xml');
+
+        $wrapper = $this->_container->get('forestsoft_deployer');
+        $wrapper->inventory($hostConfig);
+        $this->setWrapper($wrapper);
+    }
+
+    public static function app($key)
+    {
+        return self::container()->get($key);
+    }
+
+    public static function container()
+    {
+        $instance = self::getInstance();
+        return $instance->getContainer();
+    }
 
     /**
      * @return Factory
@@ -26,12 +60,8 @@ class Factory
     public static function getInstance($hostConfig = "hosts.yml")
     {
         if (self::$instance === null) {
-            self::$instance = new Factory();
-            $wrapper = new Wrapper\Deployer\Stub();
-            $wrapper->inventory($hostConfig);
-            self::$instance->setWrapper($wrapper);
+            self::$instance = new Factory($hostConfig);
         }
-
         return self::$instance;
     }
 
@@ -74,7 +104,8 @@ class Factory
      */
     public function getDatabaseCommand() : \Forestsoft\Deployer\Command\Database
     {
-        return new \Forestsoft\Deployer\Command\Database($this->_wrapper);
+        return $this->_container->get("forestsoft_deployer_command_database");
+        //return new \Forestsoft\Deployer\Command\Database($this->_wrapper);
     }
 
     public function init()
@@ -83,5 +114,10 @@ class Factory
         $this->_wrapper->set('ssh_multiplexing', true);
         $this->_wrapper->set("configFile","{{configFile}}");
         $this->_wrapper->set('default_stage', 'dev');
+    }
+
+    public function getContainer() : ContainerInterface
+    {
+        return $this->_container;
     }
 }

@@ -76,6 +76,7 @@ class DatabaseTest extends TestCase
 
         $this->setupCredentials();
 
+        $this->_deployer->method('isLocal')->willReturn(true);
         $this->_deployer->expects($this->once())->method('run')->with($sqlCommand);
 
         vfsStream::newFile('dump.sql')->withContent("INSERT INTO foo values (foo, bar)")->at($this->root);

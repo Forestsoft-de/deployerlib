@@ -93,4 +93,11 @@ interface Deployer
      * @return mixed
      */
     public function cd($directory);
+
+    /**
+     * Operates on local or remote host
+     *
+     * @return bool
+     */
+    public function isLocal() : bool;
 }

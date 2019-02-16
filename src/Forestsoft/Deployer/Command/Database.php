@@ -26,7 +26,19 @@ class Database extends Command implements DatabaseCommand
             if (!file_exists($sqlFile)) {
                 throw new \InvalidArgumentException(sprintf("The sql file %s to import does not exist", $sqlFile));
             }
-            parent::run($this->cliBin . " " . $opts . " < " . $sqlFile);
+            if (!$this->_deployer->isLocal()) {
+                $this->_deployer->upload($sqlFile, "/tmp/" . basename($sqlFile));
+            }
+            try {
+                parent::run($this->cliBin . " " . $opts . " < " . $sqlFile);
+            } catch (\Exception $e) {
+                throw $e;
+            } finally {
+                if (!$this->_deployer->isLocal()) {
+                    parent::run("rm -f /tmp/" . basename($sqlFile));
+                }
+            }
+
             $this->_deployer->writeln(sprintf("<info>✔</info> %s sucessfully imported to %s@%s ON %s", $sqlFile, $this->_deployer->get("app.mysql.user"), $this->_deployer->get("app.mysql.host"),  $this->_deployer->get("app.mysql.database")));
         }
     }

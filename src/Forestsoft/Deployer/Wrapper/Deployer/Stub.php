@@ -7,12 +7,14 @@ use function Deployer\cd;
 use function Deployer\download;
 use function Deployer\get;
 use function Deployer\has;
+use Deployer\Host\Localhost;
 use function Deployer\inventory;
 use function Deployer\isDebug;
 use function Deployer\parse;
 use function Deployer\run;
 use function Deployer\runLocally;
 use function Deployer\set;
+use Deployer\Task\Context;
 use function Deployer\upload;
 
 use function Deployer\write;
@@ -141,5 +143,14 @@ class Stub implements Deployer
     {
         cd($directory);
         return $this;
+    }
+
+    /**
+     * @return bool
+     * @throws \Deployer\Exception\Exception
+     */
+    public function isLocal(): bool
+    {
+        return Context::get()->getHost() instanceof Localhost;
     }
 }

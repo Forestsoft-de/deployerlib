@@ -5,15 +5,18 @@ use Deployer\Deployer;
 use Deployer\Task\Context;
 
 include_once dirname(__DIR__) . '/vendor/autoload.php';
+
+
 define("FIXTURES", __DIR__ . "/fixtures");
 
 $console = new Application('Deployer', "0.1");
-new Deployer($console);
+$deployer = new Deployer($console);
+$deployer->init();
 
 $input = new \Symfony\Component\Console\Input\ArgvInput();
 $output = new \Symfony\Component\Console\Output\BufferedOutput();
 
-$localhost = new \Deployer\Host\Localhost();
+$localhost = new \Deployer\Host\Localhost("dev.local");
 $localhost->set("foo", "bar");
 Context::push(new Context($localhost, $input, $output));
 

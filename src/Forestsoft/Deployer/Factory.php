@@ -41,6 +41,7 @@ class Factory
         $wrapper = $this->_container->get('forestsoft_deployer');
         $wrapper->inventory($hostConfig);
         $this->setWrapper($wrapper);
+        $this->init();
     }
 
     public static function app($key)
@@ -91,7 +92,7 @@ class Factory
      */
     public function getConfigurator()
     {
-        return new Configurator($this->_wrapper);
+        return $this->getContainer()->get('forestsoft_deployer_configurator');
     }
 
     public function getConfigFileWriter()
@@ -105,7 +106,6 @@ class Factory
     public function getDatabaseCommand() : \Forestsoft\Deployer\Command\Database
     {
         return $this->_container->get("forestsoft_deployer_command_database");
-        //return new \Forestsoft\Deployer\Command\Database($this->_wrapper);
     }
 
     public function init()
@@ -114,6 +114,9 @@ class Factory
         $this->_wrapper->set('ssh_multiplexing', true);
         $this->_wrapper->set("configFile","{{configFile}}");
         $this->_wrapper->set('default_stage', 'dev');
+        $this->_wrapper->set('app', []);
+
+        $this->getConfigurator();
     }
 
     public function getContainer() : ContainerInterface

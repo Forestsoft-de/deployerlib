@@ -11,6 +11,10 @@
     <services>
         <service id="Forestsoft\Deployer\Wrapper\Deployer" />
 
+        <service id="forestsoft_deployer_configurator" class="Forestsoft\Deployer\Configuration\Configurator">
+            <argument type="service" id="forestsoft_deployer" />
+        </service>
+
         <service id="forestsoft_deployer" class="\Forestsoft\Deployer\Wrapper\Deployer\Stub" autowire="true"/>
         <service id="forestsoft_deployer_command_database" class="\Forestsoft\Deployer\Command\Database">
             <argument type="service" id="forestsoft_deployer" />

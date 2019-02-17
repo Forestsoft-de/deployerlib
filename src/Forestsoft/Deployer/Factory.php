@@ -95,9 +95,12 @@ class Factory
         return $this->getContainer()->get('forestsoft_deployer_configurator');
     }
 
+    /**
+     * @return File
+     */
     public function getConfigFileWriter()
     {
-        return new File($this->getConfigurator());
+        return $this->getContainer()->get('forestsoft_deployer_configurator_file');
     }
 
     /**

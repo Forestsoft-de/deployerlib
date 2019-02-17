@@ -57,10 +57,12 @@ class Configurator implements ConfiguratorInterface
             } else {
                 $indexKey = $index . "." . $key;
 
+                $host->set($indexKey, $value);
+
                 if ($this->_deployer->isDebug()) {
                    $this->_deployer->writeln("Set config " . $indexKey . " to '" . $value . "' for host " . $host->getHostname());
                 }
-                $host->set($indexKey, $value);
+
             }
         }
     }

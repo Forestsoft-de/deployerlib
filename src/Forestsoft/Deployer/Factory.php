@@ -38,6 +38,7 @@ class Factory
         $loader = new XmlFileLoader($this->_container, new FileLocator(__DIR__));
         $loader->load(__DIR__ . '/services.xml');
 
+        /** @var Deployer\Stub $wrapper */
         $wrapper = $this->_container->get('forestsoft_deployer');
         $wrapper->inventory($hostConfig);
         $this->setWrapper($wrapper);

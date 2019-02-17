@@ -2,6 +2,7 @@
 
 namespace Forestsoft\Deployer\Configuration;
 
+use Deployer\Host\Host;
 use Forestsoft\Deployer\Wrapper\Deployer;
 use Forestsoft\Deployer\Configuration\Configurator;
 use PHPUnit\Framework\TestCase;
@@ -67,7 +68,9 @@ class ConfiguratorTest extends TestCase
      */
     public function testParseConfig($expectedConfig, $config)
     {
-        $this->_deployer->expects($this->once())->method("set")->with($expectedConfig["key"], $expectedConfig["value"]);
-        $this->_object->parseConfig($config["app"], "app");
+        $host = $this->getMockBuilder(Host::class)->disableOriginalConstructor()->getMock();
+        $host->expects($this->once())->method("set")->with($expectedConfig["key"], $expectedConfig["value"]);
+
+        $this->_object->parseConfig($host, $config["app"], "app");
     }
 }

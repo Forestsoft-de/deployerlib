@@ -3,7 +3,9 @@
 namespace Forestsoft\Deployer\Configuration;
 
 
+use Deployer\Host\Host;
 use Forestsoft\Deployer\Wrapper\Deployer;
+use Deployer\Deployer as DeployerBase;
 
 class Configurator implements ConfiguratorInterface
 {
@@ -28,16 +30,22 @@ class Configurator implements ConfiguratorInterface
      */
     public function getAppConfig()
     {
-        $settings = $this->_deployer->get("app");
-        $this->parseConfig($settings, "app");
+        $hosts = DeployerBase::get()->hosts;
+        foreach ($hosts as $host) {
+            $settings = $host->get('app');
+            if (!empty($settings)) {
+                $this->parseConfig($host, $settings, "app");
+            }
+        }
         return $this->_deployer->get("app");
     }
 
     /**
+     * @param Host $host
      * @param $settingsApp
      * @param $index
      */
-    public function parseConfig($settingsApp, $index)
+    public function parseConfig($host, $settingsApp, $index)
     {
         if (!is_array($settingsApp)) {
             throw new \InvalidArgumentException("Could not parse config. Given config is empty");
@@ -45,14 +53,14 @@ class Configurator implements ConfiguratorInterface
 
         foreach ($settingsApp as $key => $value) {
             if (is_array($value) && preg_match("#[A-z]+#", $key)) {
-                $this->parseConfig($value, $index . "." . $key );
+                $this->parseConfig($host, $value, $index . "." . $key );
             } else {
                 $indexKey = $index . "." . $key;
 
                 if ($this->_deployer->isDebug()) {
-                   $this->_deployer->writeln("Set config " . $indexKey . " to '" . $value . "'");
+                   $this->_deployer->writeln("Set config " . $indexKey . " to '" . $value . "' for host " . $host->getHostname());
                 }
-                $this->_deployer->set($indexKey, $value);
+                $host->set($indexKey, $value);
             }
         }
     }

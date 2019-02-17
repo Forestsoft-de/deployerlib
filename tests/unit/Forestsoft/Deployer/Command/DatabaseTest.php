@@ -86,6 +86,24 @@ class DatabaseTest extends BaseTest
         $this->_object->import([$sqlFile]);
     }
 
+    public function testImportOnRemoteHost()
+    {
+        $sqlFile = vfsStream::url("exampleDir/dump.sql");
+        $sqlCommand = "mysql -hlocalhost -uroot -P3306 -p'root' mydatabase < /tmp/" . basename($sqlFile);
+
+        $this->setupCredentials();
+
+        vfsStream::newFile('dump.sql')->withContent("INSERT INTO foo values (foo, bar)")->at($this->root);
+
+        $this->_deployer->method('isLocal')->willReturn(false);
+
+        $this->_deployer->expects($this->at(8))->method('run')->with($sqlCommand);
+        $this->_deployer->expects($this->at(10))->method('run')->with("rm -f /tmp/dump.sql");
+
+        $this->_object = new Database($this->_deployer);
+        $this->_object->import([$sqlFile]);
+    }
+
     /**
      *
      */

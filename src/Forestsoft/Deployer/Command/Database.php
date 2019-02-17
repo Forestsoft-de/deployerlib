@@ -28,6 +28,7 @@ class Database extends Command implements DatabaseCommand
             }
             if (!$this->_deployer->isLocal()) {
                 $this->_deployer->upload($sqlFile, "/tmp/" . basename($sqlFile));
+                $sqlFile = "/tmp/" . basename($sqlFile);
             }
             try {
                 parent::run($this->cliBin . " " . $opts . " < " . $sqlFile);

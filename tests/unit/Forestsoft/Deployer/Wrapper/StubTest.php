@@ -1,6 +1,7 @@
 <?php
 namespace Forestsoft\Deployer\Wrapper;
 use Forestsoft\Deployer\BaseTest;
+use Forestsoft\Deployer\Wrapper\Deployer\Stub;
 
 /**
  * Created by PhpStorm.
@@ -11,6 +12,11 @@ use Forestsoft\Deployer\BaseTest;
 
 class StubTest extends BaseTest
 {
+    /**
+     * @var Stub
+     */
+    private $_object;
+
     protected function setUp()
     {
         parent::setUp();
@@ -24,4 +30,14 @@ class StubTest extends BaseTest
     {
         $this->assertEquals("localhost", $this->_object->get('app.mysql.host'));
     }
+
+    /**
+     *
+     */
+    public function testIsLocal()
+    {
+        $this->assertTrue($this->_object->isLocal());
+    }
+
+
 }

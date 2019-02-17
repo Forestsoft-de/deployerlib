@@ -36,9 +36,9 @@ class OptionsTest extends \Forestsoft\Deployer\BaseTest
     public function testsetOption()
     {
         $expected['option_value'] = "bar";
-        $expected['autoload'] = "no";
+        $expected['autoload'] = "yes";
 
-        $this->_object->setOption("foo", "bar", "no");
+        $this->_object->setOption("foo", "bar");
 
         $this->assertEquals($expected, $this->_object->getValues());
 

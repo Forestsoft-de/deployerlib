@@ -45,7 +45,7 @@ class Options implements DatabaseConfiguration
         } else {
             $this->_values['option_value'] = $value;
         }
-        $this->_values['autoload'] = ($autoload == "yes") ?: "no";
+        $this->_values['autoload'] = ($autoload) ?: "no";
         $this->_optionName = $name;
 
     }

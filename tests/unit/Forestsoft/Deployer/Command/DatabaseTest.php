@@ -8,16 +8,13 @@
 
 namespace Forestsoft\Deployer\Command;
 
+use Forestsoft\Deployer\BaseTest;
 use Forestsoft\Deployer\Factory;
 use Forestsoft\Deployer\Wrapper\Deployer;
 use org\bovigo\vfs\vfsStream;
-use PHPUnit\Framework\TestCase;
-
-class DatabaseTest extends TestCase
+class DatabaseTest extends BaseTest
 {
     private $root;
-
-    private $_deployer;
 
     /**
      * @var
@@ -41,8 +38,6 @@ class DatabaseTest extends TestCase
     {
         parent::setUp();
 
-        $this->_deployer = $this->getMockBuilder(Deployer::class)->getMock();
-        Factory::container()->set("forestsoft_deployer", $this->_deployer);
         $this->_object = Factory::app("forestsoft_deployer_command_database");
         $this->root = vfsStream::setup("exampleDir");
     }
@@ -63,6 +58,8 @@ class DatabaseTest extends TestCase
         $sqlFile = vfsStream::url("exampleDir/dump.sql");
 
         $this->expectExceptionMessage(sprintf("The sql file %s to import does not exist", $sqlFile));
+
+        $this->_object = new Database($this->_deployer);
         $this->_object->import([$sqlFile]);
     }
 

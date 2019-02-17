@@ -61,7 +61,7 @@ class Factory
     public static function getInstance($hostConfig = "hosts.yml")
     {
         if (self::$instance === null) {
-            self::$instance = new Factory($hostConfig);
+           self::$instance = new Factory($hostConfig);
         }
         return self::$instance;
     }
@@ -114,7 +114,6 @@ class Factory
         $this->_wrapper->set('ssh_multiplexing', true);
         $this->_wrapper->set("configFile","{{configFile}}");
         $this->_wrapper->set('default_stage', 'dev');
-        $this->_wrapper->set('app', []);
 
         $this->getConfigurator();
     }

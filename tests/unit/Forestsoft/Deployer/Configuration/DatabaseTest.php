@@ -2,11 +2,12 @@
 
 namespace Forestsoft\Deployer\Configuration;
 
+use Forestsoft\Deployer\BaseTest;
 use Forestsoft\Deployer\Wrapper\Deployer;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 
-class DatabaseTest extends TestCase
+class DatabaseTest extends BaseTest
 {
 
     /**
@@ -14,10 +15,6 @@ class DatabaseTest extends TestCase
      */
     protected $_object = null;
 
-    /**
-     * @var Deployer
-     */
-    private $_deployer;
     /**
      * @var array
      */

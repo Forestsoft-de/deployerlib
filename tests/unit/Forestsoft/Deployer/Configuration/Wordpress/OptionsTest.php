@@ -47,6 +47,18 @@ class OptionsTest extends \Forestsoft\Deployer\BaseTest
         $this->assertEquals($conditions, $this->_object->getConditions());
     }
 
+    public function testsetOptionAsArray()
+    {
+        $serialized = 'a:3:{i:0;s:51:"all-in-one-wp-security-and-firewall/wp-security.php";i:1;s:29:"divi-builder/divi-builder.php";i:2;s:27:"updraftplus/updraftplus.php";}';
+        $expected['option_value'] = $serialized;
+        $expected['autoload'] = "no";
+
+        $this->_object->setOption("foo", unserialize($serialized), "no");
+
+        $this->assertEquals($expected, $this->_object->getValues());
+    }
+
+
 
     public function testgetTable()
     {

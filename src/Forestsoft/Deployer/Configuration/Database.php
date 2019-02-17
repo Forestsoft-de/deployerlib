@@ -73,7 +73,7 @@ class Database extends Configurator
         $values = [];
 
         foreach ($fields as $field => $value) {
-            $definition = "`" . $field . "` = ";
+            $definition = "" . $field . " = ";
             if (is_string($value)) {
                 $definition .= "'" . $value . "'";
             }

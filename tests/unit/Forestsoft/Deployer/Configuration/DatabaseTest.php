@@ -99,7 +99,7 @@ class DatabaseTest extends BaseTest
     public function testWrite()
     {
         $configruation = $this->getMockBuilder(DatabaseConfiguration::class)->getMock();
-        $expectedQuery = "UPDATE wp_options SET `option_value` = 'My new Wordpresssite', `autoload` = 'no' WHERE `option_name` = 'blogname'";
+        $expectedQuery = "UPDATE wp_options SET option_value = 'My new Wordpresssite', autoload = 'no' WHERE option_name = 'blogname'";
         $mock = $this->createDbMock($expectedQuery);
 
         $configruation->method('getTable')->willReturn('wp_options');

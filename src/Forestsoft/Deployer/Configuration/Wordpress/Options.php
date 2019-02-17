@@ -40,7 +40,11 @@ class Options implements DatabaseConfiguration
      */
     public function setOption($name, $value, $autoload = "yes")
     {
-        $this->_values['option_value'] = $value;
+        if (is_array($value)) {
+            $this->_values['option_value'] = serialize($value);
+        } else {
+            $this->_values['option_value'] = $value;
+        }
         $this->_values['autoload'] = ($autoload == "yes") ?: "no";
         $this->_optionName = $name;
 

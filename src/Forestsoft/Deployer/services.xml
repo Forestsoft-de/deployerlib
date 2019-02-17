@@ -14,6 +14,9 @@
         <service id="forestsoft_deployer_configurator" class="Forestsoft\Deployer\Configuration\Configurator">
             <argument type="service" id="forestsoft_deployer" />
         </service>
+        <service id="forestsoft_deployer_configuration_wordpress_options" class="Forestsoft\Deployer\Configuration\Wordpress\Options">
+            <argument type="service" id="forestsoft_deployer" />
+        </service>
 
         <service id="forestsoft_deployer_configurator_file" class="Forestsoft\Deployer\Configuration\Writer\File">
             <argument type="service" id="forestsoft_deployer_configurator" />

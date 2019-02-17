@@ -55,6 +55,37 @@ class Database extends Configurator
         }
     }
 
+    public function write(DatabaseConfiguration $configuration)
+    {
+        $query  = "UPDATE " . $configuration->getTable() . " SET ";
+        $query .= $this->extractArray($configuration->getValues());
+
+        if ($configuration->getConditions()) {
+            $query .= " WHERE ";
+            $query .= $this->extractArray($configuration->getConditions());
+        }
+
+        $this->getDatabaseRunner()->run($query);
+    }
+
+    private function extractArray($fields, $seperator = ", ")
+    {
+        $values = [];
+
+        foreach ($fields as $field => $value) {
+            $definition = "`" . $field . "` = ";
+            if (is_string($value)) {
+                $definition .= "'" . $value . "'";
+            }
+            if (is_numeric($value)) {
+                $definition .=  $value;
+            }
+            $values[] = $definition;
+        }
+
+        return implode($seperator, $values);
+    }
+
     protected function getDatabaseRunner()
     {
         return Factory::getInstance()->getDatabaseCommand();

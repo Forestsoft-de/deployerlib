@@ -74,11 +74,17 @@ class DatabaseTest extends BaseTest
     public function testsetAppDatabaseConfig()
     {
         $expectedQuery = "UPDATE core_config_data SET value = 'bar' WHERE path = 'foo'";
+
+        $mock = $this->createDbMock($expectedQuery);
         
+        $mock->setAppDatabaseConfig("foo", "bar");
+    }
+
+    private function createDbMock($expectedQuery)
+    {
         $dbRunner = $this->getMockBuilder(\Forestsoft\Deployer\Command\Database::class)
             ->disableOriginalConstructor()
             ->getMock();
-
         $dbRunner->expects($this->once())->method("run")->with($expectedQuery);
 
         $mock = $this->getMockBuilder(Database::class)
@@ -86,7 +92,20 @@ class DatabaseTest extends BaseTest
             ->setConstructorArgs([$this->_deployer])
             ->getMock();
         $mock->expects($this->any())->method("getDatabaseRunner")->willReturn($dbRunner);
-        
-        $mock->setAppDatabaseConfig("foo", "bar");
+
+        return $mock;
+    }
+
+    public function testWrite()
+    {
+        $configruation = $this->getMockBuilder(DatabaseConfiguration::class)->getMock();
+        $expectedQuery = "UPDATE wp_options SET `option_value` = 'My new Wordpresssite', `autoload` = 'no' WHERE `option_name` = 'blogname'";
+        $mock = $this->createDbMock($expectedQuery);
+
+        $configruation->method('getTable')->willReturn('wp_options');
+        $configruation->method('getValues')->willReturn(['option_value' => 'My new Wordpresssite', 'autoload' => 'no']);
+        $configruation->method('getConditions')->willReturn(['option_name' => 'blogname']);
+
+        $mock->write($configruation);
     }
 }

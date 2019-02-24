@@ -7,6 +7,7 @@ use function Deployer\cd;
 use function Deployer\download;
 use function Deployer\get;
 use function Deployer\has;
+use Deployer\Host\Host;
 use Deployer\Host\Localhost;
 use function Deployer\inventory;
 use function Deployer\isDebug;
@@ -151,6 +152,11 @@ class Stub implements Deployer
      */
     public function isLocal(): bool
     {
-        return Context::get()->getHost() instanceof Localhost;
+        return $this->getHost() instanceof Localhost;
+    }
+
+    public function getHost(): Host
+    {
+        return Context::get()->getHost();
     }
 }

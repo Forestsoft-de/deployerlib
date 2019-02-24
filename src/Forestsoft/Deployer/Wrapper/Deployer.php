@@ -2,6 +2,8 @@
 
 namespace Forestsoft\Deployer\Wrapper;
 
+use Deployer\Host\Host;
+
 interface Deployer
 {
     /**
@@ -100,4 +102,11 @@ interface Deployer
      * @return bool
      */
     public function isLocal() : bool;
+
+    /**
+     * get current host.
+     *
+     * @return Host
+     */
+    public function getHost() : Host;
 }

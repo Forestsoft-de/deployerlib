@@ -62,7 +62,6 @@ class Configurator implements ConfiguratorInterface
                 if ($this->_deployer->isDebug()) {
                    $this->_deployer->writeln("Set config " . $indexKey . " to '" . $value . "' for host " . $host->getHostname());
                 }
-
             }
         }
     }

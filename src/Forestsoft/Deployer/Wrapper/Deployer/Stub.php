@@ -158,11 +158,9 @@ class Stub implements Deployer
     public function getHost(): Host
     {
         if (Context::has()) {
-            return Context::get()->getHost();
+            $localhost = new Localhost();
+            Context::push(new Context($localhost));
         }
-
-        $localhost = new Localhost();
-
-        return $localhost;
+        return Context::get()->getHost();
     }
 }

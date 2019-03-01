@@ -16,7 +16,9 @@ class FactorySpec extends ObjectBehavior
 
     function let()
     {
-
+        $this->beConstructedThrough(function() {
+            return Factory::getInstance();
+        });
     }
 
     public  function it_return_an_factory_instance()

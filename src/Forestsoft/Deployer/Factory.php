@@ -9,7 +9,6 @@ use Forestsoft\Deployer\Wrapper\Deployer;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 class Factory
@@ -119,7 +118,7 @@ class Factory
         $this->_wrapper->set("configFile","{{configFile}}");
         $this->_wrapper->set('default_stage', 'dev');
 
-        $this->getConfigurator();
+        //$this->getConfigurator();
     }
 
     public function getContainer() : ContainerInterface

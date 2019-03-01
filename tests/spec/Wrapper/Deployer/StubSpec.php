@@ -15,7 +15,7 @@ class StubSpec extends ObjectBehavior
 
     function it_get_return_config_value()
     {
-        $this->shouldThrow(ConfigurationException::class)->during('get', ['foo']);
+        $this->shouldThrow(new ConfigurationException("Configuration parameter `foo` does not exist."))->during('get', ['foo']);
     }
 
     function it_cd_the_working_directory()

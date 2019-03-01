@@ -1,6 +1,6 @@
 #!/bin/bash
 
-php7.1 /usr/local/bin/composer update
+php7.1 /usr/bin/composer update
 
 cd $WORKSPACE/tests
 

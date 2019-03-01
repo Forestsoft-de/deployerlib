@@ -118,7 +118,7 @@ class Factory
         $this->_wrapper->set("configFile","{{configFile}}");
         $this->_wrapper->set('default_stage', 'dev');
 
-        //$this->getConfigurator();
+        $this->getConfigurator();
     }
 
     public function getContainer() : ContainerInterface

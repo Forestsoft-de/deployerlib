@@ -54,14 +54,15 @@ class FileSpec extends ObjectBehavior
 
     public function createFileWriter()
     {
-        $deployerLib = Factory::getInstance();
-        $deployerLib->init();
+
         $hosts = Deployer::get()->hostSelector->getByHostnames('dev.local');
 
         foreach ($hosts as $host) {
             Context::push(new Context($host, new ArgvInput(), new BufferedOutput()));
         }
 
+        $deployerLib = Factory::getInstance();
+        $deployerLib->init();
         return $deployerLib->getConfigFileWriter();
 
     }

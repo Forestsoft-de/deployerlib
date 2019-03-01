@@ -4,6 +4,7 @@ namespace Forestsoft\Deployer\Configuration;
 
 
 use Deployer\Host\Host;
+use Deployer\Task\Context;
 use Forestsoft\Deployer\Wrapper\Deployer;
 use Deployer\Deployer as DeployerBase;
 
@@ -30,12 +31,12 @@ class Configurator implements ConfiguratorInterface
      */
     public function getAppConfig()
     {
-        $hosts = DeployerBase::get()->hosts;
-        foreach ($hosts as $host) {
-            $settings = $host->get('app');
-            if (!empty($settings)) {
-                $this->parseConfig($host, $settings, "app");
-            }
+        if (Context::has()) {
+            $context = Context::get();
+            $host = $context->getHost();
+
+            $settings = $host->get('app', []);
+            $this->parseConfig($host, $settings, "app");
         }
         return $this->_deployer->get("app");
     }

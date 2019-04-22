@@ -49,10 +49,10 @@ class Database extends Command implements DatabaseCommand
         if ($this->_deployer->has("app.mysql.defaults_file")) {
             $defaults = "--defaults-file=".$this->_deployer->get("app.mysql.defaults_file");
         } else {
-            $defaults = "";
+            $defaults = " -u" . $this->_deployer->get("app.mysql.user") . " -P" . $this->_deployer->get("app.mysql.port") . " -p'" . $this->_deployer->get("app.mysql.password") . "' " . $this->_deployer->get("app.mysql.database");
         }
 
-        $opts = $defaults . " -h" . $this->_deployer->get("app.mysql.host") . " -u" . $this->_deployer->get("app.mysql.user") . " -P" . $this->_deployer->get("app.mysql.port") . " -p'" . $this->_deployer->get("app.mysql.password") . "' " . $this->_deployer->get("app.mysql.database");
+        $opts = " -h" . $this->_deployer->get("app.mysql.host") . " " . $defaults;
 
         return trim($opts);
 
